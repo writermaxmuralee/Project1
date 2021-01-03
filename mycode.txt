@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+class Main {
+    public static void main(String ss[]) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter size of array");
+        int sizeArray= scanner.nextInt();
+        //int oneindexed= sizeArray-1;
+        System.out.println("Enter the search element");
+        int searchelement = scanner.nextInt();
+        System.out.println("Enter the Array");
+        int Array= scanner.nextInt();
+        int sortedArray[] = getArrayInput(sizeArray, scanner);
+        int calculatedindex= SearchForIndex(searchelement,sortedArray);
+        System.out.println("The element is at index"+ calculatedindex);
+    }// closing main func
+    private static int[] getArrayInput(int a, Scanner scanner) {
+        int[] temper;
+        temper = new int[a];
+        for (int i = 0; i < a; i++) {
+            temper[i] = scanner.nextInt();
+        }
+        return temper;
+    } //CLOSING GETARRAYINPUT METHOD
+    private static int SearchForIndex(int a, int[]ar) {
+        int index = 0;
+        int exp = 0;
+        boolean condition = true;
+ //CODE FOR SEARCHING FOR INDED USING 2 POWER EXP
+        while (condition == true) {
+            try {
+                if (ar[index] == a) {
+                    return index;
+                } else if (ar[index] < a) {
+                    index = 2 * exp;
+                    exp += 1;
+                } else if (ar[index] > a) {
+                    throw new IndexOutOfBoundsException(index);
+                }
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                break;
+            }
+        }
+ //CODE FOR BINARY SEARCH
+        int left=(index/2)+1;
+        int right=index+1;
+        int mid=0;
+        while (left<=right){
+            try{
+                mid=left+(right-left)/2;
+                if (ar[mid]==a){
+                    return mid;
+                }
+                else if(ar[mid]<a) {
+                    left=mid+1;
+                }
+                else{
+                    right=mid-1;
+                }
+            } catch (Exception e) {
+                //return -1;
+                e.printStackTrace();
+            }
+
+        }
+ //BINARY SEARCH CODE COMPLETED
+ return mid;
+    }//CLOSING SEARCHFORINDEX
+
+}//CLOSING MAINCLASS
+
